@@ -18,8 +18,10 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Android SDK sozlash
+    - name: Android SDK va Build-Tools o'rnatish
       uses: android-actions/setup-android@v3
+      with:
+        packages: 'platforms;android-34 build-tools;34.0.0'
 
     - name: Gradle uchun ruxsat berish
       run: chmod +x gradlew
