@@ -1,0 +1,34 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Loyihani yuklab olish
+      uses: actions/checkout@v4
+
+    - name: JDK o'rnatish (Java 17)
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Android SDK sozlash
+      uses: android-actions/setup-android@v3
+
+    - name: Gradle uchun ruxsat berish
+      run: chmod +x gradlew
+
+    - name: Debug APK yaratish
+      run: ./gradlew assembleDebug
+
+    - name: APK faylni saqlab qo'yish
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug-apk
+        path: app/build/outputs/apk/debug/app-debug.apk
